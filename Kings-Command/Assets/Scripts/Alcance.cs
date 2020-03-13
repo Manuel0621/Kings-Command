@@ -20,13 +20,13 @@ public class Alcance : MonoBehaviour
 			return;
 		if (!objAlAlcance.Contains(aux))
 			objAlAlcance.Add(aux);
-		print("Objeto encontrado");
 	}
 	
 	private void OnTriggerExit(Collider other)
 	{
 		objAlAlcance.Remove(other.gameObject);
-		print("Objeto fuera de alcance");
+		if (objAlAlcance.Count == 0)
+			print("Sin objetos");
 	}
 	
 	public GameObject GetObject()
@@ -35,7 +35,7 @@ public class Alcance : MonoBehaviour
 			return null;
 		GameObject aux = objAlAlcance[0];
 		objAlAlcance.RemoveAt(0);
-		print("Tomando objeto");
+		aux.SetActive(false);
 		return aux;
 	}
 }

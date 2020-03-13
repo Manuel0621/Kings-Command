@@ -32,9 +32,5 @@ public class PlatSuperior : MonoBehaviour
 			)
 				Destroy(sj);
 		}
-		
-		/* TODO
-		 * si id = 3, romper los spring
-		 */
 	}
 }

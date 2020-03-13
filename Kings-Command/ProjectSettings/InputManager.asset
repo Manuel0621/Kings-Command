@@ -9,8 +9,8 @@ InputManager:
     m_Name: HorizontalJ1
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: s
-    positiveButton: f
+    negativeButton: f
+    positiveButton: s
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
@@ -41,8 +41,8 @@ InputManager:
     m_Name: VerticalJ1
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: d
-    positiveButton: e
+    negativeButton: e
+    positiveButton: d
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3

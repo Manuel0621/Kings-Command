@@ -1,38 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 /*
- * Sube la plataforma al comenzar el juego (Como si la preparara el rey).
+ * Fija la posición de las plataformas inferiores
+ * Cuenta las vidad restantes
  */
 public class PlatCompleta : MonoBehaviour
 {
-	public int idPlat;	//Asignado por el Manager
-// 	public float velocidad;	//Asignado por fuera
-// 	private bool enPosicion;
+	public int idPlat;	//Asignado por la fábrica
+	public Text texto;	//Asignado por la fábrica
+	public int tasaDeRefresco;
+	private int i;
 	
-	void Start()
-	{
-// 		enPosicion = false;
-	}
+	void Start() {}
 	
 	void Update()
 	{
-// 		if (enPosicion)
-// 			return;
-// 		Vector3 aux = new Vector3(
-// 			transform.position.x,
-// 			0,
-// 			transform.position.y
-// 		);
-// 		transform.position = Vector3.MoveTowards(
-// 			transform.position,
-// 			aux,
-// 			velocidad * Time.smoothDeltaTime
-// 		);
-// 		if (transform.position.y == 0) {
-// 			enPosicion = true;
-// 			GetComponentInParent<Manager>().TraerJugador(idPlat);
-// 		}
+		if (i++ >= tasaDeRefresco) {
+			i = 0;
+			GameObject sup = transform.GetChild(0).gameObject;
+			texto.text = "" + (3 - sup.GetComponent<PlatSuperior>().platAlcanzadas);
+			
+			int aux = (int)(sup.transform.position.y * 1000);
+			texto.text += ", " + aux * 0.001;
+		}
 	}
 	
 	/*
@@ -41,7 +33,7 @@ public class PlatCompleta : MonoBehaviour
 	public void Iniciar()
 	{
 		Transform aux = transform.GetChild(0);
-		int childs = transform.childCount;
+		int childs = aux.transform.childCount;
 		for (int i = childs - 1; i >= 0; i--)
 			aux.GetChild(i).parent = transform;
 		

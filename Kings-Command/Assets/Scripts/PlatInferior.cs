@@ -7,16 +7,12 @@ using UnityEngine;
 public class PlatInferior : MonoBehaviour
 {
 	public GameObject superior;	//Asignado por fuera
-	public int idPlat;		//Asignado por fuera
-	public int tiempoLimite;	//Asignado por fuera
-	private bool tocado;
-	private int tiempoTocando;
+	public int	idPlat;		//Asignado por fuera
+	public float	tiempoLimite;	//Asignado por fuera
+	private bool	tocado;
+	private int	tiempoTocando;
 	
-	void Start()
-	{
-		tocado = false;
-		tiempoTocando = 0;
-	}
+	void Start() {}
 	
 	void Update() {}
 	

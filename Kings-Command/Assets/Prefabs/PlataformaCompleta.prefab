@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   superior: {fileID: 8174177335899770026}
   idPlat: 1
-  tiempoLimite: 10
+  tiempoLimite: 20
 --- !u!1 &4140814499575197972
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   superior: {fileID: 8174177335899770026}
   idPlat: 2
-  tiempoLimite: 10
+  tiempoLimite: 20
 --- !u!1 &4140814499673503127
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   superior: {fileID: 8174177335899770026}
   idPlat: 3
-  tiempoLimite: 10
+  tiempoLimite: 20
 --- !u!1 &5033114882654078565
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +276,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idPlat: 0
-  velocidad: 10
+  texto: {fileID: 0}
+  tasaDeRefresco: 0
 --- !u!1 &8174177335899770026
 GameObject:
   m_ObjectHideFlags: 0
