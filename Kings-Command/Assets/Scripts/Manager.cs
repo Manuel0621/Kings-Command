@@ -8,7 +8,8 @@ using UnityEngine.UI;
  */
 public class Manager : MonoBehaviour
 {
-	public Fabrica fabrica;		//Asignado por fuera
+	public static Manager manager;
+	public Fabrica fabrica;			//Asignado por fuera
 	public GameObject comenzarButton;	//Asignado por fuera
 	public GameObject salirButton;		//Asignado por fuera
 	public GameObject relojInicio;		//Asignado por fuera
@@ -22,6 +23,7 @@ public class Manager : MonoBehaviour
 	{
 		fabrica.CargarEscenario();
 		MenuInicio(true);
+		manager = this;
 	}
 	
 	public void MenuInicio(bool b)
@@ -90,8 +92,9 @@ public class Manager : MonoBehaviour
 		}
 	}
 	
-	public void FinDelJuego(byte perdedor)
+	public void FinDelJuego(int perdedor)
 	{
+		print("jugador " + perdedor + " ha perdido");
 		//TODO
 	}
 	

@@ -25,8 +25,6 @@ public class Alcance : MonoBehaviour
 	private void OnTriggerExit(Collider other)
 	{
 		objAlAlcance.Remove(other.gameObject);
-		if (objAlAlcance.Count == 0)
-			print("Sin objetos");
 	}
 	
 	public GameObject GetObject()

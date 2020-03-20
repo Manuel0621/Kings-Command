@@ -45,25 +45,31 @@ public class Jugador : MonoBehaviour
 	
 	private void Agarrar()
 	{
-		if (Input.GetKeyUp(KeyCode.K)) {
+		if (Input.GetButtonUp("FireJ" + idJugador)) {
 			arma = alcance.GetObject();
 			if (arma == null)
 				return;
-			Transform aux = arma.transform;
-			arma.GetComponent<Rigidbody>().useGravity = false;
-			aux.parent = transform;
-			aux.position = new Vector3(0, 2, 0);
+			arma.SetActive(false);
+			Rigidbody auxR = arma.GetComponent<Rigidbody>();
+			auxR.useGravity = false;
+			auxR.constraints = RigidbodyConstraints.FreezePosition;
+			Transform auxT = arma.transform;
+			auxT.parent = transform;
+			Vector3 auxV = auxT.position;
+			auxV.y += 1;
+			auxT.position = auxV;
 			arma.SetActive(true);
 		}
 	}
 	
 	private void Lanzar()
 	{
-		if (Input.GetKeyUp(KeyCode.K)) {
+		if (Input.GetButtonUp("FireJ" + idJugador)) {
 			arma.transform.parent = null;
-			Rigidbody aux = arma.GetComponent<Rigidbody>();
-			aux.useGravity = true;
-			aux.AddForce(armaDir, ForceMode.VelocityChange);
+			Rigidbody auxR = arma.GetComponent<Rigidbody>();
+			auxR.useGravity = true;
+			auxR.constraints = RigidbodyConstraints.None;
+			auxR.AddForce(armaDir, ForceMode.VelocityChange);
 			arma = null;
 		}
 	}
@@ -71,5 +77,10 @@ public class Jugador : MonoBehaviour
 	public void Iniciar()
 	{
 		jugando = true;
+	}
+	
+	public void Terminar()
+	{
+		jugando = false;
 	}
 }

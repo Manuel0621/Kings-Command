@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class Fabrica : MonoBehaviour
 {
 	//prefabs
+	public static Fabrica fabrica;
 	public GameObject escenarioPrefab;	//Asignado por fuera
 	public GameObject plataformaPrefab;	//Asignado por fuera
 	public GameObject jugadorPrefab;	//Asignado por fuera
@@ -39,6 +40,7 @@ public class Fabrica : MonoBehaviour
 	
 	void Start()
 	{
+		fabrica = this;
 		jugador = new GameObject[2];
 		inicio = new UnityEvent();
 		objLittle = new GameObject[objLittleAmount];
@@ -103,6 +105,7 @@ public class Fabrica : MonoBehaviour
 			j = jugador[0].GetComponent<Jugador>();
 			inicio.AddListener(j.Iniciar);
 			j.idJugador = 1;
+			j.armaDir.x *= -1;
 			//jugador 2
 			jugador[1] = Instantiate(
 				jugadorPrefab,
@@ -130,55 +133,54 @@ public class Fabrica : MonoBehaviour
 		float kind = Random.Range(0f, probLittle + probMedium + probBig);
 		int index;
 		//little
+		int currentAux, amountAux;
+		GameObject[] objAux, prefabAux;;
 		if (kind < probLittle) {
-			if (littleCurrent < objLittleAmount) {
-				index = littleCurrent % littlePrefab.Length;
-				objLittle[littleCurrent] = Instantiate(
-					littlePrefab[index]
-				);
-				objLittle[littleCurrent].SetActive(false);
-				return objLittle[littleCurrent++];
-			}
-			index = Random.Range(0, objLittleAmount);
-			for (int i = 0; i < objLittleAmount; i++) {
-				int realIndex = (i + index) % objLittleAmount;
-				if (!objLittle[realIndex].activeSelf)
-					return objLittle[realIndex];
-			}
+			prefabAux = littlePrefab;
+			currentAux = mediumCurrent;
+			amountAux = objLittleAmount;
+			objAux = objLittle;
+			if (currentAux < amountAux)
+				littleCurrent++;
 		}//medium
 		else if (kind < probLittle + probMedium) {
-			if (mediumCurrent < objMediumAmount) {
-				index = mediumCurrent % mediumPrefab.Length;
-				objMedium[mediumCurrent] = Instantiate(
-					mediumPrefab[index]
-				);
-				objMedium[mediumCurrent].SetActive(false);
-				return objMedium[mediumCurrent++];
-			}
-			index = Random.Range(0, objMediumAmount);
-			for (int i = 0; i < objMediumAmount; i++) {
-				int realIndex = (i + index) % objMediumAmount;
-				if (!objMedium[realIndex].activeSelf)
-					return objMedium[realIndex];
-			}
+			prefabAux = mediumPrefab;
+			currentAux = mediumCurrent;
+			amountAux = objMediumAmount;
+			objAux = objMedium;
+			if (currentAux < amountAux)
+				mediumCurrent++;
 		}//big
 		else {
-			if (bigCurrent < objBigAmount) {
-				index = bigCurrent % bigPrefab.Length;
-				objBig[bigCurrent] = Instantiate(
-					bigPrefab[index]
-				);
-				objBig[bigCurrent].SetActive(false);
-				return objBig[bigCurrent++];
-			}
-			index = Random.Range(0, objBigAmount);
-			for (int i = 0; i < objBigAmount; i++) {
-				int realIndex = (i + index) % objBigAmount;
-				if (!objBig[realIndex].activeSelf)
-					return objBig[realIndex];
-			}
+			prefabAux = bigPrefab;
+			currentAux = bigCurrent;
+			amountAux = objBigAmount;
+			objAux = objBig;
+			if (currentAux < amountAux)
+				bigCurrent++;
+		}
+		if (currentAux < amountAux) {
+			index = currentAux % prefabAux.Length;
+			objAux[currentAux] = Instantiate(prefabAux[index]);
+			objAux[currentAux].SetActive(false);
+			return objAux[currentAux];
+		}
+		index = Random.Range(0, amountAux);
+		for (int i = 0; i < amountAux; i++) {
+			int realIndex = (i + index) % amountAux;
+			if (!objAux[realIndex].activeSelf)
+				return objAux[realIndex];
 		}
 		return null;
+	}
+	
+	public void Destruir(GameObject obj)
+	{
+		if (obj.tag == "Player") {
+			Jugador auxJ = obj.GetComponent<Jugador>();
+			Manager.manager.FinDelJuego(auxJ.idJugador);
+		}
+		obj.SetActive(false);
 	}
 	
 	public void FinalizarJuego()
